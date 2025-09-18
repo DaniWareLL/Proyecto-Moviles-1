@@ -10,7 +10,7 @@ public class MainJuegosMesa {
         - Cuantos jugadores admite cada uno
         - Cuanto dura una partida
         - Donde se guardan
-    Problema: A veces compran juegos repetidos o no encuentran el juego adecuado para el grupo
+    Problema: A veces comparan juegos repetidos o no encuentran el juego adecuado para el grupo
     Necesidad: Quieren una app que les permita gestionar su coleccion de juegos de mesa para consultoria y irganizarse mejor.
     La app debe permitir:
         - Resigstrar varios juegos de mesa con sus datos basicos:
@@ -32,16 +32,38 @@ public class MainJuegosMesa {
 
     public static void main(String[] args) {
 
+        Juegos j = new Juegos();
         int op = 0;
         do {
             System.out.println("**MENU DE INICIO**");
-            System.out.println(" 1) Dar de alta Juego\n" +
+            System.out.println("1) Dar de alta Juego\n" +
                     "2) Listar juegos\n" +
                     "3) Busqueda por titulo\n" +
-                    "4 Salir");
+                    "4) Eliminar juego\n" +
+                    "5) Salir");
+            op = sc.nextInt();
             switch (op) {
                 case 1:
+                    j.anadirJuegoMesa();
+                    break;
+                case 2:
+                    j.listarJuegos();
+                    break;
+                case 3:
+                    j.buscarPorTitulo();
+                    break;
+                case 4:
+                    j.eliminarPorTitulo();
+                    break;
+                case 5:
+                        System.out.println("**CERRANDO PROGRAMA**");
+                        break;
+                default:
+                    System.out.println("**ERROR**");
+                    break;
             }
         }while (op != 5);
     }
 }
+
+// hacer comparable y validar algunos datos
