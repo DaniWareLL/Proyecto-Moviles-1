@@ -1,7 +1,7 @@
 package dLillo;
 
-public class JuegoMesa {
-    private String Titulo;
+public abstract class JuegoMesa implements Comparable<JuegoMesa>{
+    private String titulo;
     private String autor;
     private int maxJugadores;
     private int minJugadores;
@@ -13,7 +13,7 @@ public class JuegoMesa {
     }
 
     public JuegoMesa(String titulo, String autor, int maxJugadores, int minJugadores, int duracionMedia, Tipo tipo) {
-        Titulo = titulo;
+        titulo = titulo;
         this.autor = autor;
         this.maxJugadores = maxJugadores;
         this.minJugadores = minJugadores;
@@ -22,11 +22,11 @@ public class JuegoMesa {
     }
 
     public String getTitulo() {
-        return Titulo;
+        return titulo;
     }
 
     public void setTitulo(String titulo) {
-        Titulo = titulo;
+        titulo = titulo;
     }
 
     public String getAutor() {
@@ -67,5 +67,10 @@ public class JuegoMesa {
 
     public void setTipo(Tipo tipo) {
         this.tipo = tipo;
+    }
+
+    @Override
+    public int compareTo(JuegoMesa otro) {
+        return this.titulo.compareToIgnoreCase(otro.titulo);
     }
 }

@@ -8,9 +8,9 @@ public class Juegos {
 
     static Scanner sc= new Scanner (System.in);
 
-    TreeSet<JuegoMesa> lista = new TreeSet<JuegoMesa>();    // Para no permitir repetidos y ordenarlo
+    Set<JuegoMesa> lista = new TreeSet<>(); // Para no permitir repetidos y ordenarlo
 
-    public void anadirJuegoMesa() {
+        public void anadirJuegoMesa() {
         String titulo;
         String autor;
         int maxJugadores;
@@ -35,16 +35,16 @@ public class Juegos {
         titulo = sc.nextLine();
         System.out.println("Introduzca autor:");
         autor = sc.nextLine();
-        sc.nextLine();
         System.out.println("Introduzca el maximo de jugadores:");
         maxJugadores = sc.nextInt();
         System.out.println("Introduzca el minimo de jugadores:");
         minJugadores = sc.nextInt();
         System.out.println("Introduzca duracion media");
         duracionMedia = sc.nextInt();
+        sc.nextLine(); // limpiar buffer
 
         boolean valido = false;
-        while (!valido) {   // Validar el enum Tipo
+        do{
             System.out.println("Introduzca tipo entre ESTRATEGIA, PARTY y FAMILIAR:");
             try {
                 tipo = JuegoMesa.Tipo.valueOf(sc.nextLine().toUpperCase());
@@ -52,7 +52,7 @@ public class Juegos {
             } catch (IllegalArgumentException e) {
                 System.out.println("Valor no válido. Intente de nuevo.");
             }
-        }
+        }while(!valido);
 
         if (op == 1) {
             do {

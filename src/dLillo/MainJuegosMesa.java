@@ -56,8 +56,8 @@ public class MainJuegosMesa {
                     j.eliminarPorTitulo();
                     break;
                 case 5:
-                        System.out.println("**CERRANDO PROGRAMA**");
-                        break;
+                    System.out.println("**CERRANDO PROGRAMA**");
+                    break;
                 default:
                     System.out.println("**ERROR**");
                     break;
@@ -65,5 +65,3 @@ public class MainJuegosMesa {
         }while (op != 5);
     }
 }
-
-// hacer comparable y validar algunos datos
