@@ -1,5 +1,8 @@
-package dLillo;
+package main;
 
+import dLillo.Inventario;
+
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class MainJuegosMesa {
@@ -32,7 +35,7 @@ public class MainJuegosMesa {
 
     public static void main(String[] args) {
 
-        Juegos j = new Juegos();
+        Inventario j = new Inventario();
         int op = 0;
         do {
             System.out.println("**MENU DE INICIO**");
@@ -41,27 +44,36 @@ public class MainJuegosMesa {
                     "3) Busqueda por titulo\n" +
                     "4) Eliminar juego\n" +
                     "5) Salir");
-            op = sc.nextInt();
-            switch (op) {
-                case 1:
-                    j.anadirJuegoMesa();
-                    break;
-                case 2:
-                    j.listarJuegos();
-                    break;
-                case 3:
-                    j.buscarPorTitulo();
-                    break;
-                case 4:
-                    j.eliminarPorTitulo();
-                    break;
-                case 5:
-                    System.out.println("**CERRANDO PROGRAMA**");
-                    break;
-                default:
-                    System.out.println("**ERROR**");
-                    break;
+            try {
+                op = sc.nextInt();
+                switch (op) {
+                    case 1:
+                        j.anadirJuegoMesa();
+                        break;
+                    case 2:
+                        j.listarJuegos();
+                        break;
+                    case 3:
+                        j.buscarPorTitulo();
+                        break;
+                    case 4:
+                        j.eliminarPorTitulo();
+                        break;
+                    case 5:
+                        System.out.println("**CERRANDO PROGRAMA**");
+                        break;
+                    default:
+                        System.err.println("**ERROR**\n" +
+                                "Introduce un valor valido");
+                        break;
+                }
+            }catch(InputMismatchException e) {
+                System.err.println("**EXCEPCION**\n" +
+                        "Por favor vuelva a intentarlo");
+                sc.nextLine(); // limpiar buffer, sino se genera un bucle infinito
             }
-        }while (op != 5);
+            } while (op != 5) ;
     }
+
+    // Me falta comprobar nulos y evitar que en el metodo de eliminar me imprima contantemente no encontrado sino solo cuando ya haya revisado todos
 }

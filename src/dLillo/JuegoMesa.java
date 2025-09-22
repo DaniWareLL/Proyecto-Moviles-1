@@ -1,6 +1,6 @@
 package dLillo;
 
-public abstract class JuegoMesa implements Comparable<JuegoMesa>{
+public abstract class JuegoMesa implements Comparable<JuegoMesa>{   // Lo hago abstracto para que no se puedan crear objetos de este tipo
     private String titulo;
     private String autor;
     private int maxJugadores;
@@ -13,7 +13,7 @@ public abstract class JuegoMesa implements Comparable<JuegoMesa>{
     }
 
     public JuegoMesa(String titulo, String autor, int maxJugadores, int minJugadores, int duracionMedia, Tipo tipo) {
-        titulo = titulo;
+        this.titulo = titulo;
         this.autor = autor;
         this.maxJugadores = maxJugadores;
         this.minJugadores = minJugadores;
@@ -26,7 +26,7 @@ public abstract class JuegoMesa implements Comparable<JuegoMesa>{
     }
 
     public void setTitulo(String titulo) {
-        titulo = titulo;
+        this.titulo = titulo;
     }
 
     public String getAutor() {
@@ -70,7 +70,24 @@ public abstract class JuegoMesa implements Comparable<JuegoMesa>{
     }
 
     @Override
+    public String toString() {
+        return "JuegoMesa{" +
+                "titulo='" + titulo + '\'' +
+                ", autor='" + autor + '\'' +
+                ", maxJugadores=" + maxJugadores +
+                ", minJugadores=" + minJugadores +
+                ", duracionMedia=" + duracionMedia +
+                ", tipo=" + tipo +
+                " ,";
+    }
+
+    @Override
     public int compareTo(JuegoMesa otro) {
+        if(this.titulo.equals(otro.titulo)) {   //  Si al ordenar por titulo coincide, ordenamos por autor
+            return this.autor.compareTo(otro.autor);
+        }
         return this.titulo.compareToIgnoreCase(otro.titulo);
     }
+
+    public abstract void mostrarInfo();
 }

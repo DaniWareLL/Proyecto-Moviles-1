@@ -15,4 +15,12 @@ public class JuegoTablero extends JuegoMesa{
     public void setTamanoTablero(int tamanoTablero) {
         this.tamanoTablero = tamanoTablero;
     }
+
+    @Override
+    public void mostrarInfo() { //  Metodo abstracto
+        System.out.println("JuegoTablero{" +
+                super.toString() +
+                ", tamanoTablero=" + tamanoTablero +
+                '}');
+    }
 }
