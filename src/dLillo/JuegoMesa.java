@@ -71,14 +71,12 @@ public abstract class JuegoMesa implements Comparable<JuegoMesa>{   // Lo hago a
 
     @Override
     public String toString() {
-        return "JuegoMesa{" +
-                "titulo='" + titulo + '\'' +
-                ", autor='" + autor + '\'' +
+        return  "titulo=" + titulo +
+                ", autor=" + autor +
                 ", maxJugadores=" + maxJugadores +
                 ", minJugadores=" + minJugadores +
                 ", duracionMedia=" + duracionMedia +
-                ", tipo=" + tipo +
-                " ,";
+                ", tipo=" + tipo;
     }
 
     @Override

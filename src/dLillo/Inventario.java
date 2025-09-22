@@ -1,5 +1,6 @@
 package dLillo;
 
+import java.io.*;
 import java.util.*;
 
 public class Inventario {
@@ -11,13 +12,13 @@ public class Inventario {
         public void anadirJuegoMesa() {
         String titulo;
         String autor;
-        Integer maxJugadores = 0;   // Los hago Integer como envoltorio para poder comprobar que no sean null
-        Integer minJugadores = 0;
-        Integer duracionMedia = 0;
+        int maxJugadores = 0;
+        int minJugadores = 0;
+        int duracionMedia = 0;
         JuegoMesa.Tipo tipo = null;
 
         int tTablero = 0;
-        int numeroCartas;
+        int numeroCartas = 0;
 
         int op = 0;
         do {
@@ -40,11 +41,23 @@ public class Inventario {
 
         } while (op != 1 && op != 2);
 
+        do{
+            System.out.println("Introduzca el titulo del juego: ");
+            titulo = sc.nextLine();
+            if(titulo.isEmpty()){
+                System.err.println("**ERORR*\n" +
+                        "No puede ser un valor nulo");
+            }
+        }while (titulo.isEmpty());
 
-        System.out.println("Introduzca el titulo del juego: ");
-        titulo = sc.nextLine();
-        System.out.println("Introduzca autor: ");
-        autor = sc.nextLine();
+            do{
+                System.out.println("Introduzca autor: ");
+                autor = sc.nextLine();
+                if(autor.isEmpty()){
+                    System.err.println("**ERORR*\n" +
+                            "No puede ser un valor nulo");
+                }
+            }while (autor.isEmpty());
 
         do{
             try {
@@ -60,11 +73,18 @@ public class Inventario {
                     System.err.println("**ERROR**\n" +
                             "El maximo de jugadores no puede ser menor que el minimo de jugadores");
                 }
+
+                if(maxJugadores == 0 || minJugadores == 0){
+                    System.err.println("**ERROR**\n" +
+                            "Los valores no pueden ser 0");
+                }
+
             } catch (InputMismatchException e) {
-                System.out.println("**EXCEPCION**\n" +
+                System.err.println("**EXCEPCION**\n" +
                         "DEBE SER UN NUMERO");
+                sc.nextLine();
             }
-        }while(maxJugadores < minJugadores || maxJugadores == null || minJugadores == null);       // Arreglar
+        }while(maxJugadores < minJugadores || maxJugadores == 0 || minJugadores == 0);    // No compruebo que sea nulo ya que en java es imposible que un int sea nulo
 
             boolean valido = false;
 
@@ -73,9 +93,15 @@ public class Inventario {
                     System.out.println("Introduzca duración media en minutos: ");
                     duracionMedia = sc.nextInt();
                     sc.nextLine(); // limpiar buffer
-                    valido = true; // Si llegamos aquí, el valor es válido
+                    if(duracionMedia != 0){
+                        valido = true; // Si llegamos aquí, el valor es válido
+                    }else{
+                        System.err.println("**ERROR**\n" +
+                                "El valor no puede ser 0");
+                    }
+
                 } catch(InputMismatchException e) {
-                    System.out.println("**EXCEPCION** DEBE SER UN NUMERO EN MINUTOS");
+                    System.err.println("**EXCEPCION** DEBE SER UN NUMERO EN MINUTOS");
                     sc.nextLine(); // limpiar el buffer del scanner
                 }
             } while(!valido);
@@ -161,32 +187,40 @@ public class Inventario {
         }
     }
         public void listarJuegos (){
-            for (JuegoMesa temp : lista) {
-                temp.mostrarInfo(); //  Metodo abstractos
+            if(!lista.isEmpty()) {
+                for (JuegoMesa temp : lista) {
+                    temp.mostrarInfo(); //  Metodos abstractos
+                }
+            }else{
+                System.err.println("**ERROR** La lista esta vacia");
             }
         }
 
         public void buscarPorTitulo (){
-            String titulo = "";
-            while(titulo.isEmpty()){
-                System.out.println("Introduzca el titulo del juego: ");
-                titulo = sc.nextLine();
-                if (titulo.isEmpty()){
-                    System.err.println("**ERROR**");
+            if(!lista.isEmpty()) {
+                String titulo = "";
+                while (titulo.isEmpty()) {
+                    System.out.println("Introduzca el titulo del juego: ");
+                    titulo = sc.nextLine();
+                    if (titulo.isEmpty()) {
+                        System.err.println("**ERROR**\n" +
+                                "Lista de juegos vacia");
+                    }
                 }
-            }
 
-            boolean encontrado = false;
-            for (JuegoMesa temp : lista) {
-                if (temp.getTitulo().equalsIgnoreCase(titulo)) {
-                    System.out.println(temp);
-                    encontrado = true;
+                boolean encontrado = false;
+                for (JuegoMesa temp : lista) {
+                    if (temp.getTitulo().equalsIgnoreCase(titulo)) {
+                        temp.mostrarInfo();
+                        encontrado = true;
+                    }
                 }
+                if (!encontrado) {
+                    System.err.println("**ERROR** Juego no encontrado");
+                }
+            }else{
+                System.err.println("**ERROR** La lista esta vacia. No se puede realizar la busqueda");
             }
-            if (!encontrado) {
-                System.err.println("**ERROR** Juego no encontrado");
-            }
-
         }
 
         public void eliminarPorTitulo (){
@@ -198,7 +232,8 @@ public class Inventario {
                     System.out.println("Introduzca el titulo del juego: ");
                     titulo = sc.nextLine();
                     if (titulo.isEmpty()) {
-                        System.err.println("**ERROR**");
+                        System.err.println("**ERROR**\n" +
+                                "El nombre no puede ser nulo");
                     }
                 } catch (InputMismatchException e) {
                     System.err.println("**EXCEPCION** Debe ser un numero");
@@ -218,7 +253,18 @@ public class Inventario {
                 }
         }else{
             System.err.println("**ERROR**\n" +
-                    "La lista de juegos esta vacia");
+                    "La lista esta vacia");
         }
     }
+
+    public void logOperacion(String mensaje) {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter("inventario.log", true))) {
+            bw.write(new Date() + " - " + mensaje);
+            bw.newLine();
+        } catch (IOException e) {
+            System.err.println("Error al escribir log: " + e.getMessage());
+        }
+    }
+
+
 }

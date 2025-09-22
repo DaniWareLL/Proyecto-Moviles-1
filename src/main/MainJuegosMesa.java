@@ -49,6 +49,7 @@ public class MainJuegosMesa {
                 switch (op) {
                     case 1:
                         j.anadirJuegoMesa();
+                        j.logOperacion("Se ha añadido un juego");
                         break;
                     case 2:
                         j.listarJuegos();
@@ -58,9 +59,11 @@ public class MainJuegosMesa {
                         break;
                     case 4:
                         j.eliminarPorTitulo();
+                        j.logOperacion("Se ha eliminado un juego");
                         break;
                     case 5:
                         System.out.println("**CERRANDO PROGRAMA**");
+                        j.logOperacion("Se ha usado el programa");
                         break;
                     default:
                         System.err.println("**ERROR**\n" +
@@ -74,6 +77,6 @@ public class MainJuegosMesa {
             }
             } while (op != 5) ;
     }
-
-    // Me falta comprobar nulos y evitar que en el metodo de eliminar me imprima contantemente no encontrado sino solo cuando ya haya revisado todos
 }
+
+// La proxima update que voy a hacer en mi codigo va a ser generar un fichero de objetos para posteriormente leer y trabajar en el.
