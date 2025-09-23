@@ -1,5 +1,10 @@
 package dLillo;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Date;
+
 public abstract class JuegoMesa implements Comparable<JuegoMesa>{   // Lo hago abstracto para que no se puedan crear objetos de este tipo
     private String titulo;
     private String autor;
@@ -88,4 +93,13 @@ public abstract class JuegoMesa implements Comparable<JuegoMesa>{   // Lo hago a
     }
 
     public abstract void mostrarInfo();
+
+    public void logOperacion(String mensaje) {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter("inventario.log", true))) {
+            bw.write(new Date() + " - " + mensaje + " con titulo: " + this.titulo);
+            bw.newLine();
+        } catch (IOException e) {
+            System.err.println("Error al escribir log: " + e.getMessage());
+        }
+    }
 }

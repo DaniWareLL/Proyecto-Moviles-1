@@ -153,6 +153,7 @@ public class Inventario {
                         validoTablero = true;
                         JuegoTablero temp = new JuegoTablero(titulo, autor, maxJugadores, minJugadores, duracionMedia, tipo, tTablero);
                         lista.add(temp);
+                        temp.logOperacion("Juego de tablero añadido");
                         System.out.println("Juego de tablero añadido con exito!");
                     } else {
                         System.err.println("**ERROR** Debe ser mayor que 0");
@@ -175,6 +176,7 @@ public class Inventario {
                         validoCartas = true;
                         JuegoCartas temp = new JuegoCartas(titulo, autor, maxJugadores, minJugadores, duracionMedia, tipo, numeroCartas);
                         lista.add(temp);
+                        temp.logOperacion("Juego de cartas añadido");
                         System.out.println("Juego de cartas añadido con exito!");
                     } else {
                         System.err.println("**ERROR** Debe ser mayor que 0");
@@ -212,6 +214,7 @@ public class Inventario {
                 for (JuegoMesa temp : lista) {
                     if (temp.getTitulo().equalsIgnoreCase(titulo)) {
                         temp.mostrarInfo();
+                        temp.logOperacion("Busqueda de info");
                         encontrado = true;
                     }
                 }
@@ -245,6 +248,7 @@ public class Inventario {
                     if (temp.getTitulo().equals(titulo)) {
                         it.remove();
                         System.out.println("Juego eliminado con exito!");
+                        temp.logOperacion("Juego eliminado");
                         encontrado = true;
                     } else if (!encontrado){
                         System.err.println("**ERROR**\n" +
@@ -256,15 +260,4 @@ public class Inventario {
                     "La lista esta vacia");
         }
     }
-
-    public void logOperacion(String mensaje) {
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter("inventario.log", true))) {
-            bw.write(new Date() + " - " + mensaje);
-            bw.newLine();
-        } catch (IOException e) {
-            System.err.println("Error al escribir log: " + e.getMessage());
-        }
-    }
-
-
 }

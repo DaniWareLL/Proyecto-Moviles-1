@@ -49,7 +49,6 @@ public class MainJuegosMesa {
                 switch (op) {
                     case 1:
                         j.anadirJuegoMesa();
-                        j.logOperacion("Se ha añadido un juego");
                         break;
                     case 2:
                         j.listarJuegos();
@@ -59,11 +58,9 @@ public class MainJuegosMesa {
                         break;
                     case 4:
                         j.eliminarPorTitulo();
-                        j.logOperacion("Se ha eliminado un juego");
                         break;
                     case 5:
                         System.out.println("**CERRANDO PROGRAMA**");
-                        j.logOperacion("Se ha usado el programa");
                         break;
                     default:
                         System.err.println("**ERROR**\n" +
